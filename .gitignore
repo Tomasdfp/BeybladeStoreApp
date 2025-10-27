@@ -1,0 +1,31 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Build / Gradle
+/build/
+**/build/
+
+# Logs and runtime dumps
+*.log
+crash_report.txt
+startup_log.txt
+
+# Node / frontend
+node_modules/
+dist/
+
+# IDE output
+out/

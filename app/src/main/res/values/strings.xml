@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Beyblade Store</string>
+    <!-- Set your Xano or API base URL here (no trailing slash). If empty, app uses local DB for auth. -->
+    <string name="api_base_url"></string>
+</resources>

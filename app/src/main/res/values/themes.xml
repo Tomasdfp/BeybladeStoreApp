@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.BeybladeStoreApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_orange</item>
+        <item name="colorOnPrimary">@color/text_white</item>
+        <item name="android:statusBarColor">@color/darker_bg</item>
+    </style>
+</resources>
