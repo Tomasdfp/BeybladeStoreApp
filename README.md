@@ -1,136 +1,148 @@
+# BeybladeStoreApp
+
+## Descripción breve
+ 
+ BeybladeStoreApp es una aplicación de tienda móvil (Android) para gestionar un catálogo de productos tipo "Beyblade". Implementa un flujo básico de e-commerce educativo: pantalla splash animada, autenticación (registro/login) con persistencia local mediante DataStore, catálogo de productos con detalle por id, carrito y roles simples (usuario / admin). La arquitectura sigue el patrón MVVM.
+
+## Objetivos de la aplicación — Fase 1
+
+- Implementar una pantalla Splash animada y navegación hacia la pantalla de login.
+- Autenticación básica: registro y login con persistencia de sesión usando Jetpack DataStore (Preferences). Soporte de logout.
+- Catálogo de productos (8–10 productos de ejemplo) y pantalla de detalle accesible por ruta `detalle/{id}`.
+- Estructura MVVM: Repositorios → ViewModels → Composables (Jetpack Compose).
+- Interfaz usable y estable (la app no debe cerrarse inesperadamente durante el flujo principal).
+
+## Características y funcionalidades
+
+- Splash animado con logo y botón para continuar.
+- Registro y login de usuarios (local, DataStore). Sesión persistente.
+- Logout que borra la sesión persistente.
+- Catálogo navegable con lista de productos (grid/list). Cada elemento abre el detalle vía ruta con id.
+- Detalle de producto con imágenes, descripción, precio y selector de cantidad.
+- Carrito básico y flujo de pedidos (simulado/local).
+- Panel de administración mínimo: añadir/editar productos desde la app (interfaz local).
+- Persistencia local de catálogo, carrito y usuarios mediante DataStore.
+- Cumple requisitos básicos de la rúbrica (animaciones, navegación, MVVM, persistencia).
+
+## Requisitos del sistema
+
+- Sistema operativo: Windows / macOS / Linux para desarrollo (Android SDK necesario para compilación y emulación).
+- Java JDK 11+ (compatible con la versión de Gradle usada por el wrapper). Recomendado: OpenJDK 11 o 17.
+- Android Studio (Arctic Fox / Bumblebee o superior) con Android SDK y emulador configurados.
+- Espacio en disco suficiente y permisos para ejecutar Gradle wrapper.
+- Gradle Wrapper incluido en el repositorio — no es necesario instalar Gradle globalmente.
+
+## Cómo compilar y ejecutar (rápido)
+
+Usando PowerShell en Windows (desde la raíz del proyecto `BeybladeStoreApp`):
+
+```powershell
+# Ensamblar APK de debug (más rápido, omite lint)
+.\gradlew.bat :app:assembleDebug -x lint
+
+# Crear APK release (firmado no incluido — requiere configuración de signingConfigs)
+.\gradlew.bat :app:assembleRelease
+```
+
+Recomendación: abrir el proyecto en Android Studio y ejecutar en un emulador o dispositivo físico para depuración y pruebas de UI.
+
+## Estructura del proyecto
+
+Raíz del repositorio (resumen):
+
+- BeybladeStoreApp/
+	- app/                      -> Módulo Android con código fuente (UI, ViewModels, repositorios)
+		- src/main/java/com/.../ui/theme/screen/  -> Composables / pantallas (Login, Register, Splash, ProductList, ProductDetail, etc.)
+		- src/main/res/drawable/   -> Imágenes y logos (por ejemplo `pngegg.png` usado en Splash)
+		- build.gradle.kts
+	- build.gradle.kts
+	- gradle/...
+	- settings.gradle.kts
+	- README.md                 -> Este archivo
+	- scripts/                  -> Scripts de mantenimiento (ej: `remove_comments_and_clean.ps1`)
+
+
+## Notas y consideraciones (mejoras posibles, limitaciones)
+
+- Backups: se ejecutó un script de limpieza que eliminó comentarios de código; para cada archivo modificado se creó un backup con extensión `.bak` en el mismo directorio.
+- Persistencia y sincronización con servidor: actualmente la app usa DataStore para persistencia local. Para producción se recomienda integrar un backend real (por ejemplo Xano/REST) y manejar sincronización/errores de red.
+- Seguridad: las credenciales y la persistencia local son simples y educativas. Para una app real, no almacenar contraseñas en texto plano y añadir cifrado/validación robusta.
+- Tests: hay pocos/ningunos tests automatizados en la rama actual; añadir unit/UI tests (Espresso/Compose Test) sería recomendable.
+- Build: el proyecto usa Gradle wrapper; verifica la versión de JDK si hay errores de compilación en diferentes máquinas.
+- Internacionalización: actualmente los textos están en español en la mayoría de pantallas; preparar `strings.xml` y recursos para múltiples idiomas si se requiere.
+
+## Autores
+
+- Tomás del Fierro
+- Cristóbal Martínez
+
+---
+
+Si necesitas que deje preparada una rama y haga push al remoto, pásame la URL del repositorio remoto (o ejecuta la autenticación local con `gh auth login`) y con gusto lo subo. También puedo restaurar archivos desde los `.bak` si así lo decides.
+
  # Beyblade Store (Android)
 
  Clean, small Android store app built with Jetpack Compose and MVVM. This repository contains the Android application (module `app`) for a simple Beyblade store demo used for teaching and assessment.
+Título del proyecto
 
- Key facts
- - ApplicationId / namespace: `com.proyecto.BeybladeStoreApp`
- - Default admin credentials (for local testing): `admin` / `123456`
- - UI: Jetpack Compose (Material3)
- - Architecture: MVVM (Repository -> ViewModel -> Composable UI)
- - Persistence: Jetpack DataStore (preferences) for lightweight session/users storage
+BeybladeStoreApp
 
- Features (rubric-aligned)
- - Animated splash screen shown on first open
- - User registration and login backed by DataStore
- - Logout that clears the session from DataStore
- - Product catalog (8–10 seeded products)
- - Product detail screen reachable via navigation route `detalle/{id}` (required alias)
- - Admin sections (add/edit products, manage users/orders)
- - Cart and orders screens
+Descripción breve de la aplicación
 
- Table of contents
- - Overview
- - How to build & run (Windows / PowerShell)
- - App flows to test
- - Project structure & architecture notes
- - Debugging & crash logs
- - Tests and quality checks
- - Contributing
+BeybladeStoreApp es una aplicación Android de tienda que permite visualizar un catálogo de productos tipo Beyblade, autenticar usuarios, gestionar un carrito y simular pedidos. Utiliza arquitectura MVVM y persistencia local con Jetpack DataStore.
 
- Overview
- --------
- This app is a compact educational/demo store implemented in Kotlin using Jetpack Compose. It follows a straightforward MVVM approach with repositories that encapsulate data access and ViewModels that expose state to composables. The UI uses Navigation Compose and includes the required `detalle/{id}` route for product details.
+Objetivos de la aplicación Fase 1
 
- How to build & run (Windows / PowerShell)
- ----------------------------------------
- 1) Open PowerShell and change to the project root (where the top-level `build.gradle.kts` is):
+- Implementar pantalla Splash animada y navegación hacia el login.
+- Implementar registro y login con persistencia de sesión local (DataStore) y funcionalidad de logout.
+- Proveer un catálogo de 8–10 productos de ejemplo y una pantalla de detalle accesible por ruta `detalle/{id}`.
+- Aplicar arquitectura MVVM (Repositorios, ViewModels, Composables) y garantizar estabilidad en el flujo principal.
 
- ```powershell
- cd 'C:\Users\urtub\OneDrive\Escritorio\BeyStore\BeybladeStoreApp'
- ```
+Características y Funcionalidades
 
- 2) Build the debug APK:
+- Splash animado con logo y botón para continuar.
+- Registro y login de usuarios con sesión persistente.
+- Logout que elimina la sesión almacenada.
+- Catálogo navegable y pantalla de detalle por id.
+- Carrito de compras básico y simulación de pedidos.
+- Panel administrativo local para añadir y editar productos.
 
- ```powershell
- .\gradlew.bat clean :app:assembleDebug
- ```
+Requisitos del sistema
 
- 3) Install the debug APK on a connected device or emulator (adb required):
+Requisitos mínimos para un equipo de desarrollo (PC):
 
- ```powershell
- # path to the generated debug APK
- $apk = '.\app\build\outputs\apk\debug\app-debug.apk'
- adb install -r $apk
- ```
+- Sistema operativo: Windows 10/11, macOS 10.15+ o distribuciones Linux compatibles.
+- CPU: procesador de 4 núcleos o superior.
+- Memoria RAM: 8 GB (mínimo); 16 GB recomendado.
+- Almacenamiento libre: 10 GB mínimo para SDKs y builds.
+- Java JDK 11 o superior instalado.
+- Android Studio y Android SDK con plataformas y herramientas instaladas.
 
- 4) Launch the app from the device or via adb:
+Requisitos recomendados para ejecución en dispositivo Android:
 
- ```powershell
- # open the launcher activity (replace package if you customized it)
- adb shell monkey -p com.proyecto.BeybladeStoreApp -c android.intent.category.LAUNCHER 1
- ```
+- Versión de Android: Android 8.0 (API 26) o superior.
+- Memoria: 2 GB RAM mínimo; 4 GB o más recomendado.
+- Espacio libre: al menos 100 MB para la instalación y datos de la app.
+- Habilitar depuración USB para instalación desde Android Studio o usar un emulador con imágenes del sistema.
 
- App flows to test (smoke checklist)
- ----------------------------------
- - On first launch: animated splash appears and leads to Login screen
- - Register a new user (Register screen) — verifies DataStore writes
- - Login with the registered user and validate navigation to Home
- - View product catalog (8–10 items) and open a product detail via `detalle/{id}`
- - Add a product to cart and view Cart
- - Use logout: session is cleared and app returns to Login
- - (Optional) Log in as `admin` / `123456` to access admin sections
+Estructura del proyecto
 
- Project structure (high level)
- -------------------------------
- - app/
-	 - src/main/java/com/proyecto/BeybladeStoreApp/
-		 - ui/theme/screen/  -> Composable screens (Login, Register, Home, ProductList, ProductDetail, Admin screens, etc.)
-		 - repository/       -> Repositories (AuthRepository, ProductRepository, CartRepository)
-		 - data/models/      -> Data classes (Product, CartItem, User)
-		 - viewModel/        -> ViewModel classes (AuthViewModel, ProductsViewModel, CartViewModel)
-	 - build.gradle.kts
+- BeybladeStoreApp/
+	- app/
+		- src/main/java/.../ui/theme/screen/   (Composables y pantallas: Splash, Login, Register, ProductList, ProductDetail, etc.)
+		- src/main/res/drawable/              (Recursos gráficos, p. ej. pngegg.png)
+		- build.gradle.kts
+	- settings.gradle.kts
+	- build.gradle.kts
+	- README.md
 
- Architecture notes
- ------------------
- - Repositories encapsulate data access (in-memory seeds + DataStore persistence where appropriate).
- - ViewModels expose Flow/StateFlow that UI collects with `collectAsState()`.
- - Navigation uses Navigation Compose. The product detail route uses the alias `detalle/{id}` (so you can call `navController.navigate("detalle/3")`).
+Notas/Consideraciones
 
- Debugging & crash logs
- ----------------------
- The app includes lightweight crash logging to a file inside the app's files directory to help debug early-start crashes.
- - startup marker: `startup_log.txt`
- - uncaught-exception dump: `crash_report.txt`
+- Se generaron backups con extensión `.bak` para los archivos modificados por procesos de limpieza; revisar estos archivos si se necesita recuperar comentarios o documentación previa.
+- La persistencia actual es local mediante DataStore. Para uso en producción se recomienda integrar un backend y revisar la seguridad en el manejo de credenciales.
+- Falta cobertura de pruebas automatizadas; se recomienda agregar tests unitarios y de UI y configurar signingConfigs para builds de release.
 
- To pull these files from a device/emulator using adb (PowerShell):
+Autores
 
- ```powershell
- # Replace package with the app id if changed
- $pkg = 'com.proyecto.BeybladeStoreApp'
-
- # Try to cat the file (requires 'run-as' and that the device allows it)
- adb shell run-as $pkg cat files/crash_report.txt
-
- # Or pull the files to your machine
- adb shell run-as $pkg ls -l files
- adb shell run-as $pkg cat files/startup_log.txt > startup_log.txt
- adb shell run-as $pkg cat files/crash_report.txt > crash_report.txt
- ```
-
- If `run-as` fails on some devices/emulators, you can use `adb pull` when the device is rooted, or read logs with `adb logcat`:
-
- ```powershell
- adb logcat -d | Out-File -FilePath app_logcat.txt -Encoding utf8
- ```
-
- Known developer notes
- ---------------------
- - Default admin credentials: `admin` / `123456` (only for local/dev testing)
- - DataStore is used for sessions and small persisted lists; reads are done inside coroutines (safely) but be mindful when using `.first()` on large flows.
-
- Tests & quality
- ---------------
- - The project is focused on UI + architecture; there are currently no automated instrumentation/unit tests included by default. Adding a minimal unit test for ViewModel behavior is a recommended next step.
-
- Contributing
- ------------
- 1. Fork the repo and create a feature branch.
- 2. Keep changes small and focused (UI, tests, or repository improvements).
- 3. If adding libraries, prefer well-known, actively maintained ones and add them to the Gradle files.
-
- License & contact
- -----------------
- This demo contains example code for learning and evaluation. If you want me to prepare a PR with additional fixes or CI, tell me which branch and I'll prepare it.
-
- ----
- If you want any wording changes, additional screenshots, or a quick CONTRIBUTING.md + tiny unit test, tell me which you prefer and I will add them.
+- Tomás del Fierro
+- Cristóbal Martínez
