@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -63,7 +63,7 @@ fun ProductCard(
     onClick: () -> Unit = {},
     onEdit: () -> Unit = {}
 ) {
-    // animate entry for better UX and to satisfy animation rubric
+
     val visible = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { visible.value = true }
 
@@ -80,7 +80,7 @@ fun ProductCard(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
-                // Image box (use local drawable if available)
+
                 val ctx = LocalContext.current
                 val resId = product.imageResName?.let { name ->
                     ctx.resources.getIdentifier(name, "drawable", ctx.packageName)
@@ -93,7 +93,7 @@ fun ProductCard(
                         .background(Color(0xFF0F3460)),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Prefer new multi-image field (first image) then legacy single image or drawable
+
                     val imageToShow = when {
                         product.imageUris.isNotEmpty() -> product.imageUris.first()
                         !product.imageUri.isNullOrBlank() -> product.imageUri
@@ -137,3 +137,4 @@ fun ProductCard(
         }
     }
 }
+

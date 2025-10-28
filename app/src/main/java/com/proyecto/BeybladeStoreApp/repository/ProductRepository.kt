@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.repository
+﻿package com.proyecto.BeybladeStoreApp.repository
 
 import android.content.Context
 import com.google.gson.Gson
@@ -12,7 +12,7 @@ class ProductRepository(private val context: Context) {
     private val gson = Gson()
     private val ds = DataStoreManager(context)
 
-    // Returns persisted catalog if available, otherwise seeds with sample products and persists them
+
     suspend fun getProducts(): List<Product> {
         if (!AppConfig.USE_DATASTORE) {
             return getSampleProducts()
@@ -115,3 +115,4 @@ class ProductRepository(private val context: Context) {
         )
     }
 }
+

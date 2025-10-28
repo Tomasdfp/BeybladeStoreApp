@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.Image
 import coil.compose.AsyncImage
@@ -31,17 +31,17 @@ fun ProductDetailScreen(
     onBack: () -> Unit = {}
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(0.dp)) {
-        // shared top bar
+
         SharedTopBar(currentUser = currentUser, cartCount = cartCount, onCartClick = onCartClick, onOrdersClick = onOrdersClick, onAdminClick = onAdminClick, onSettings = onSettings, onLogout = onLogout)
 
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        // image (use local drawable if available)
+
         val ctx = LocalContext.current
         val resId = product.imageResName?.let { name ->
             ctx.resources.getIdentifier(name, "drawable", ctx.packageName)
         } ?: 0
 
-        // Support multiple images: show carousel if imageUris present, otherwise fallback to single image
+
         if (!product.imageUris.isNullOrEmpty()) {
             LazyRow(modifier = Modifier
                 .height(240.dp)
@@ -86,7 +86,7 @@ fun ProductDetailScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-    // Quantity selector (only for non-admin users)
+
     val qtyState = remember { mutableStateOf(1) }
         if (currentUser != "admin") {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -98,12 +98,12 @@ fun ProductDetailScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Back button
+
         Button(onClick = onBack) { Text("Volver") }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // hide add to cart for admin
+
         if (currentUser != "admin") {
             Button(onClick = { onAddToCart(product.id, qtyState.value) }) {
                 Text("Agregar al carrito")
@@ -112,3 +112,4 @@ fun ProductDetailScreen(
     }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,3 +10,4 @@ class UsuarioViewModelFactory(private val repository: UsuarioRepository) : ViewM
         return UsuarioViewModel(repository) as T
     }
 }
+

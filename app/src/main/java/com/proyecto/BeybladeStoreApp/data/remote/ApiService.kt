@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.data.remote
+﻿package com.proyecto.BeybladeStoreApp.data.remote
 
 import retrofit2.Response
 import retrofit2.http.Body
@@ -11,3 +11,4 @@ interface ApiService {
     @POST("/auth/login")
     suspend fun login(@Body request: AuthRequest): Response<AuthResponse>
 }
+

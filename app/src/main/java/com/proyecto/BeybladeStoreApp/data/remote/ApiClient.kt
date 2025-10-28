@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.data.remote
+﻿package com.proyecto.BeybladeStoreApp.data.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    // Change BASE_URL to your Xano endpoint (no trailing slash)
-    var BASE_URL: String = "https://example.com" // override at runtime or via BuildConfig
+
+    var BASE_URL: String = "https://example.com"
 
     private fun provideOkHttp(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
@@ -24,3 +24,4 @@ object ApiClient {
         return retrofit.create(ApiService::class.java)
     }
 }
+

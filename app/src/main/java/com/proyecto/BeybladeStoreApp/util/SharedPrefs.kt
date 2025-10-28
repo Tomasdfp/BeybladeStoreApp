@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.util
+﻿package com.proyecto.BeybladeStoreApp.util
 
 import android.content.Context
 
@@ -16,3 +16,4 @@ object SharedPrefs {
         prefs.edit().putBoolean(KEY_REMOTE_ENABLED, enabled).apply()
     }
 }
+

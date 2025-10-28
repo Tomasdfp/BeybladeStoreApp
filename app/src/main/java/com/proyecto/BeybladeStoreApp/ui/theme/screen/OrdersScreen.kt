@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -59,7 +59,7 @@ fun OrdersScreen(onBack: () -> Unit = {}) {
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(ordersState.filter { isAdmin || it.userEmail == currentUser }) { order ->
                 OrderRow(order, isAdmin = isAdmin, currentUser = currentUser, onCancel = { id ->
-                    // Cancel (delete) order if allowed
+
                     coroutineScope.launch {
                         com.proyecto.BeybladeStoreApp.repository.OrdersRepository(ctx).deleteOrder(id)
                     }
@@ -85,3 +85,4 @@ private fun OrderRow(order: Order, isAdmin: Boolean, currentUser: String?, onCan
         }
     }
 }
+

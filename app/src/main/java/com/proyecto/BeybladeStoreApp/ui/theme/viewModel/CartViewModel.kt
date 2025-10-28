@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ class CartViewModel(private val repository: CartRepository) : ViewModel() {
     val items: StateFlow<List<CartItem>> = _items
 
     init {
-        // Collect repository flow so updates from any part of the app are observed immediately
+
         viewModelScope.launch {
             try {
                 repository.cartItemsFlow().collect { list ->
@@ -50,3 +50,4 @@ class CartViewModel(private val repository: CartRepository) : ViewModel() {
         }
     }
 }
+

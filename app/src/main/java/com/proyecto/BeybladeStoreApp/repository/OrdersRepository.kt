@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.repository
+﻿package com.proyecto.BeybladeStoreApp.repository
 
 import android.content.Context
 import com.google.gson.Gson
@@ -15,7 +15,7 @@ class OrdersRepository(private val context: Context) {
 
     suspend fun getOrders(): MutableList<Order> {
         val json = ds.getOrdersJson()
-        // We'll store orders in PRODUCTS_KEY to avoid changing DataStoreManager further in this patch
+
         return try {
             val type = TypeToken.getParameterized(List::class.java, Order::class.java).type
             val list: List<Order>? = gson.fromJson(json ?: "[]", type)
@@ -36,7 +36,7 @@ class OrdersRepository(private val context: Context) {
         val updated = current.filterNot { it.id == id }
         saveOrders(updated)
 
-        // restore stock from deleted order items
+
         try {
             if (toDelete != null) {
                 val prodRepo = ProductRepository(context)
@@ -77,7 +77,7 @@ class OrdersRepository(private val context: Context) {
         current.add(order)
         saveOrders(current)
 
-        // Deduct stock from products
+
         try {
             val prodRepo = ProductRepository(context)
             val products = prodRepo.getProducts().toMutableList()
@@ -90,7 +90,8 @@ class OrdersRepository(private val context: Context) {
             }
             prodRepo.saveProducts(products)
         } catch (_: Exception) {
-            // ignore stock update errors
+
         }
     }
 }
+

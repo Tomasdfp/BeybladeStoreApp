@@ -1,37 +1,62 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-// Note: SplashRoute uses an explicit button to continue; no automatic delay needed
+import androidx.compose.ui.layout.ContentScale
+
+
 
 @Composable
 fun SplashRoute(onContinue: () -> Unit) {
+    var visible by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
     AnimatedVisibility(
-        visible = true,
+        visible = visible,
         enter = fadeIn(animationSpec = tween(700)) + scaleIn(animationSpec = tween(700))
     ) {
-        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(modifier = Modifier.weight(1f))
-            // Use app launcher icon as logo (ic_launcher)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+
             Image(
-                painter = painterResource(id = com.proyecto.BeybladeStoreApp.R.mipmap.ic_launcher),
+                painter = painterResource(id = com.proyecto.BeybladeStoreApp.R.drawable.pngegg),
                 contentDescription = "Logo",
-                modifier = Modifier.size(140.dp)
+                modifier = Modifier.size(180.dp),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            androidx.compose.material3.Text(
+                text = "Beyblade Store",
+                style = androidx.compose.material3.MaterialTheme.typography.headlineSmall
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -40,7 +65,8 @@ fun SplashRoute(onContinue: () -> Unit) {
                 androidx.compose.material3.Text("Entrar")
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+
         }
     }
 }
+

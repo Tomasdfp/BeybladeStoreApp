@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.repository
+﻿package com.proyecto.BeybladeStoreApp.repository
 
 import android.content.Context
 import com.google.gson.Gson
@@ -23,7 +23,7 @@ class CartRepository(private val context: Context) {
         }
     }
 
-    // Reactive flow of cart items
+
     fun cartItemsFlow(): Flow<List<CartItem>> {
         return ds.cartJsonFlow().map { json ->
             try {
@@ -72,3 +72,4 @@ class CartRepository(private val context: Context) {
         saveCartItems(emptyList())
     }
 }
+

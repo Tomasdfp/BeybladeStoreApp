@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.repository
+﻿package com.proyecto.BeybladeStoreApp.repository
 
 import com.proyecto.BeybladeStoreApp.data.local.dao.UsuarioDao
 import com.proyecto.BeybladeStoreApp.data.local.models.Usuario
@@ -12,16 +12,16 @@ import kotlinx.coroutines.withContext
 class UsuarioRepository(private val usuarioDao: UsuarioDao, private val api: ApiService? = null) {
 
     suspend fun register(email: String, password: String): Result<Unit> {
-        // Prefer remote registration if API provided
+
         return withContext(Dispatchers.IO) {
             if (api != null) {
                 try {
-                    // Example endpoint - adapt to your Xano route
-                    // val resp = api.register(RegisterRequest(email, password))
-                    // if (resp.isSuccessful) return@withContext Result.success(Unit)
-                    // For now, fallback to local
+
+
+
+
                 } catch (e: Exception) {
-                    // ignore and fallback
+
                 }
             }
 
@@ -35,11 +35,11 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao, private val api: Api
     }
 
     suspend fun login(email: String, password: String): Boolean {
-        // Normalize inputs (trim) to avoid invisible spaces causing failures
+
         val e = email.trim()
         val p = password.trim()
 
-        // Accept built-in credentials (admin shortcut)
+
         if (e == "admin" && p == "123456") {
             Log.d("UsuarioRepository", "Admin shortcut login used")
             return true
@@ -53,7 +53,7 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao, private val api: Api
                         return@withContext resp.body()?.success == true
                     }
                 } catch (ex: Exception) {
-                    // network failed -> fallback to local
+
                     Log.w("UsuarioRepository", "Remote login failed, falling back: ${ex.message}")
                 }
             }
@@ -63,3 +63,4 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao, private val api: Api
         }
     }
 }
+

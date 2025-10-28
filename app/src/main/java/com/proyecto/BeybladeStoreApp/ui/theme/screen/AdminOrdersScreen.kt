@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,13 +40,13 @@ fun AdminOrdersScreen(onBack: () -> Unit) {
                     Text("Items: ${order.items.size}")
                     Text("Usuario: ${order.userEmail ?: "-"}")
                     Button(onClick = {
-                        // show basic details via Toast
+
                         android.widget.Toast.makeText(ctx, order.items.joinToString("; ") { "prod:${it.productId} x${it.quantity}" }, android.widget.Toast.LENGTH_LONG).show()
                     }) { Text("Ver detalles") }
                     Text("Fecha: ${java.text.SimpleDateFormat.getDateTimeInstance().format(java.util.Date(order.createdAt))}")
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(onClick = {
-                            // delete order using lifecycle-aware scope
+
                             coroutineScope.launch {
                                 withContext(Dispatchers.IO) {
                                     repo.deleteOrder(order.id)
@@ -71,3 +71,4 @@ fun AdminOrdersScreen(onBack: () -> Unit) {
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,7 +35,7 @@ fun CartScreen(
 ) {
     val ctx = LocalContext.current
 
-    // Products ViewModel
+
     val productRepo = remember { com.proyecto.BeybladeStoreApp.repository.ProductRepository(ctx) }
     val productFactory = remember(productRepo) {
         object : ViewModelProvider.Factory {
@@ -48,7 +48,7 @@ fun CartScreen(
     val productsVm: com.proyecto.BeybladeStoreApp.ui.theme.viewModel.ProductsViewModel = viewModel(factory = productFactory)
     val products by productsVm.products.collectAsState()
 
-    // Cart ViewModel
+
     val cartRepo = remember { com.proyecto.BeybladeStoreApp.repository.CartRepository(ctx) }
     val cartFactory = remember(cartRepo) {
         object : ViewModelProvider.Factory {
@@ -61,7 +61,7 @@ fun CartScreen(
     val cartVm: com.proyecto.BeybladeStoreApp.ui.theme.viewModel.CartViewModel = viewModel(factory = cartFactory)
     val items by cartVm.items.collectAsState()
 
-    // Orders ViewModel
+
     val ordersRepo = remember { com.proyecto.BeybladeStoreApp.repository.OrdersRepository(ctx) }
     val ordersFactory = remember(ordersRepo) {
         object : ViewModelProvider.Factory {
@@ -106,7 +106,7 @@ fun CartScreen(
             }
         }
 
-        // Totals
+
         val total = remember(items, products) {
             items.fold(0.0) { acc, ci -> acc + (products.firstOrNull { it.id == ci.productId }?.price ?: 0.0) * ci.quantity }
         }
@@ -118,7 +118,7 @@ fun CartScreen(
                 Text("Volver")
             }
             Button(onClick = {
-                // Checkout via OrdersViewModel, then clear cart via CartViewModel
+
                 ordersVm.checkout(items, total, currentUser)
                 cartVm.clearCart()
                 android.widget.Toast.makeText(ctx, "Compra realizada y guardada", android.widget.Toast.LENGTH_SHORT).show()
@@ -129,3 +129,4 @@ fun CartScreen(
     }
     }
 }
+

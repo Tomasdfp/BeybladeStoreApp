@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,3 +21,4 @@ class UsuarioViewModel(private val repository: UsuarioRepository) : ViewModel() 
         }
     }
 }
+

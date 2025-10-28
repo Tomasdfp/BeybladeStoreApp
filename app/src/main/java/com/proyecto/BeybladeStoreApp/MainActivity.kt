@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp
+﻿package com.proyecto.BeybladeStoreApp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -47,10 +47,10 @@ import androidx.compose.material.icons.filled.MoreVert
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Minimal safe launcher: show LoginRoute directly to confirm stability,
-        // but allow switching to HomeScreen after successful login.
+
+
         setContent {
-            // Force dark theme to improve contrast for the login fields (makes typed text visible)
+
             BeybladeStoreAppTheme(darkTheme = true) {
                 androidx.compose.runtime.remember {
                     Unit
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
                 val ctx = LocalContext.current
 
-                // helper that clears DataStore session and navigates to login
+
                 val logoutAndNavigate: () -> Unit = {
                     scope.launch {
                         try {
@@ -71,7 +71,14 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
-                NavHost(navController = navController, startDestination = "login") {
+                NavHost(navController = navController, startDestination = "splash") {
+                    composable("splash") {
+                        SplashRoute(onContinue = {
+                            navController.navigate("login") {
+                                popUpTo("splash") { inclusive = true }
+                            }
+                        })
+                    }
                     composable("login") {
                         LoginRoute(
                             onNavigateToRegister = { navController.navigate("register") },
@@ -103,7 +110,7 @@ class MainActivity : ComponentActivity() {
                             }
                         })
                         productState?.let { p ->
-                            // Use CartViewModel to add to cart following MVVM
+
                             val cartRepoLocal = com.proyecto.BeybladeStoreApp.repository.CartRepository(ctx)
                             val cartFactoryLocal = object : ViewModelProvider.Factory {
                                 @Suppress("UNCHECKED_CAST")
@@ -113,7 +120,7 @@ class MainActivity : ComponentActivity() {
                             }
                                 val cartVmLocal: com.proyecto.BeybladeStoreApp.ui.theme.viewModel.CartViewModel = viewModel(factory = cartFactoryLocal)
 
-                                // session state for current user
+
                                 val currentUserState by produceState(initialValue = null as String?, key1 = ctx) {
                                     value = try {
                                         com.proyecto.BeybladeStoreApp.repository.AuthRepository(ctx).getSession()
@@ -144,7 +151,7 @@ class MainActivity : ComponentActivity() {
                     composable("cart") {
                         CartScreen(
                             onBack = { navController.popBackStack() },
-                            onCartClick = { /* already on cart */ },
+                            onCartClick = {  },
                             onOrdersClick = { navController.navigate("orders") },
                             onAdminClick = { navController.navigate("admin") },
                             onSettings = { navController.navigate("settings") },
@@ -213,7 +220,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun EmptyPreviewHost() {
-    // helper if needed
+
     val ctx = LocalContext.current
 }
 
@@ -247,7 +254,7 @@ fun HomeScreen(
 ) {
     val ctx = LocalContext.current
 
-    // get current session to show admin-only menu entry
+
     val sessionState = produceState(initialValue = null as String?, key1 = ctx) {
         try {
             val repo = com.proyecto.BeybladeStoreApp.repository.AuthRepository(ctx)
@@ -258,7 +265,7 @@ fun HomeScreen(
     }
     val currentUser = sessionState.value
 
-    // Products ViewModel via factory to inject repository
+
     val productRepo = remember { com.proyecto.BeybladeStoreApp.repository.ProductRepository(ctx) }
     val productFactory = remember(productRepo) {
         object : ViewModelProvider.Factory {
@@ -271,7 +278,7 @@ fun HomeScreen(
     val productsVm: com.proyecto.BeybladeStoreApp.ui.theme.viewModel.ProductsViewModel = viewModel(factory = productFactory)
     val products by productsVm.products.collectAsState()
 
-    // Cart ViewModel
+
     val cartRepo = remember { com.proyecto.BeybladeStoreApp.repository.CartRepository(ctx) }
     val cartFactory = remember(cartRepo) {
         object : ViewModelProvider.Factory {
@@ -320,3 +327,4 @@ fun HomeScreen(
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -33,7 +33,7 @@ fun SharedTopBar(
     TopAppBar(
         title = { Text("Bienvenido a BeybladeStore") },
         actions = {
-            // Cart button with badge (hide for admin)
+
             if (currentUser != "admin") {
                 IconButton(onClick = onCartClick) {
                     BadgedBox(badge = { if (cartCount > 0) Badge { Text(cartCount.toString()) } }) {
@@ -58,3 +58,4 @@ fun SharedTopBar(
         }
     )
 }
+

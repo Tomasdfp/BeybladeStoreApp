@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.repository
+﻿package com.proyecto.BeybladeStoreApp.repository
 
 import android.content.Context
 import com.proyecto.BeybladeStoreApp.util.DataStoreManager
@@ -19,13 +19,13 @@ class AuthRepository(context: Context) {
             changed = true
         }
         if (changed) ds.saveUsersMap(users)
-        // Ensure roles exist for defaults
+
         val roles = ds.getRolesMap()
         var rChanged = false
         if (!roles.containsKey("user")) { roles["user"] = "user"; rChanged = true }
         if (!roles.containsKey("admin")) { roles["admin"] = "admin"; rChanged = true }
         if (rChanged) ds.saveRolesMap(roles)
-        // Ensure default profiles exist
+
         val userProfile = ds.getProfileFor("user")
         if (userProfile == null) {
             ds.saveProfile(UserProfile(email = "user", displayName = "Usuario", phone = "", address = ""))
@@ -65,7 +65,7 @@ class AuthRepository(context: Context) {
             roles.remove(email)
             ds.saveRolesMap(roles)
         }
-        // remove profile if exists
+
         val profiles = ds.getProfilesMap()
         if (profiles.containsKey(email)) {
             profiles.remove(email)
@@ -117,3 +117,4 @@ class AuthRepository(context: Context) {
         ds.saveProfile(profile)
     }
 }
+

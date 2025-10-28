@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -54,13 +54,14 @@ fun RegisterScreen(
         )
         Spacer(Modifier.height(16.dp))
 
-        // Inputs...
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
             label = { Text("Correo electrónico") },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         OutlinedTextField(
@@ -82,6 +83,7 @@ fun RegisterScreen(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done
             ),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         OutlinedTextField(
@@ -99,6 +101,7 @@ fun RegisterScreen(
                 val text = if (showPassword) "Ocultar" else "Mostrar"
                 TextButton(onClick = { showPassword = !showPassword }) { Text(text) }
             },
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -132,3 +135,4 @@ fun RegisterScreen(
         }
     }
 }
+

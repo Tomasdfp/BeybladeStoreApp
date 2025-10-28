@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -100,3 +100,4 @@ fun AdminUsersScreen(onBack: () -> Unit, onEditUser: (String) -> Unit = {}) {
         Button(onClick = onBack) { Text("Volver") }
     }
 }
+

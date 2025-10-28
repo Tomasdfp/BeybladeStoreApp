@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -33,7 +33,7 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
     val stock = remember { mutableStateOf("") }
     val imageUris = remember { mutableStateOf<List<String>>(emptyList()) }
 
-    // Image picker launcher (multiple)
+
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
         if (!uris.isNullOrEmpty()) {
             val list = uris.mapNotNull { uri ->
@@ -54,7 +54,8 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
             value = name.value,
             onValueChange = { name.value = it },
             label = { Text("Nombre") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -62,7 +63,8 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
             value = description.value,
             onValueChange = { description.value = it },
             label = { Text("Descripción") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -70,7 +72,8 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
             value = price.value,
             onValueChange = { price.value = it },
             label = { Text("Precio") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -78,7 +81,8 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
             value = imageRes.value,
             onValueChange = { imageRes.value = it },
             label = { Text("Nombre recurso drawable (opcional)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -91,7 +95,8 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
             value = stock.value,
             onValueChange = { stock.value = it },
             label = { Text("Stock (cantidad)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
         )
 
         if (imageUris.value.isNotEmpty()) {
@@ -113,7 +118,7 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
-                // Validate inputs
+
                 val priceVal = price.value.toDoubleOrNull()
                 if (name.value.isBlank()) {
                     android.widget.Toast.makeText(ctx, "El nombre es obligatorio", android.widget.Toast.LENGTH_SHORT).show()
@@ -124,7 +129,7 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
                     return@Button
                 }
 
-                // Save product
+
                 scope.launch {
                     val repo = ProductRepository(ctx)
                     val current = repo.getProducts().toMutableList()
@@ -153,3 +158,4 @@ fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
         }
     }
 }
+

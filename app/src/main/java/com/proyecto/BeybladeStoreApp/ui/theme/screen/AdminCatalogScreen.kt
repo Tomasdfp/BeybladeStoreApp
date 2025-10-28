@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +33,7 @@ fun AdminCatalogScreen(onBack: () -> Unit, onEditProduct: (Int) -> Unit = {}) {
 
     val scope = rememberCoroutineScope()
 
-    // local editable stock map
+
     val editableStocks = remember { mutableStateMapOf<Int, Int>() }
     LaunchedEffect(products) {
         editableStocks.clear()
@@ -70,7 +70,7 @@ fun AdminCatalogScreen(onBack: () -> Unit, onEditProduct: (Int) -> Unit = {}) {
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
-                // persist all editable stocks
+
                 scope.launch {
                     val current = repo.getProducts().map { p ->
                         val s = editableStocks[p.id]
@@ -84,3 +84,4 @@ fun AdminCatalogScreen(onBack: () -> Unit, onEditProduct: (Int) -> Unit = {}) {
         }
     }
 }
+

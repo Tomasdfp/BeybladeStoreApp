@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme
+﻿package com.proyecto.BeybladeStoreApp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -10,3 +10,4 @@ val CardBg = Color(0xFF0F3460)
 val TextLight = Color(0xFFE94560)
 val TextWhite = Color(0xFFFFFFFF)
 val TextGray = Color(0xFFA8B2D1)
+

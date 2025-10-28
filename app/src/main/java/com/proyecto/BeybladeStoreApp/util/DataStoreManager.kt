@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.util
+﻿package com.proyecto.BeybladeStoreApp.util
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
@@ -29,7 +29,7 @@ class DataStoreManager(private val context: Context) {
     suspend fun getUsersMap(): MutableMap<String, String> {
         val prefs = context.dataStore.data.first()
         val json = prefs[USERS_KEY] ?: "{}"
-        // parse JSON into Map<String, String>
+
         return try {
             val type = com.google.gson.reflect.TypeToken.getParameterized(Map::class.java, String::class.java, String::class.java).type
             val parsed: Map<String, String>? = gson.fromJson(json, type)
@@ -57,7 +57,7 @@ class DataStoreManager(private val context: Context) {
         return prefs[SESSION_KEY]
     }
 
-    // Cart stored as JSON array of product ids
+
     suspend fun saveCartJson(json: String) {
         context.dataStore.edit { prefs ->
             prefs[CART_KEY] = json
@@ -69,7 +69,7 @@ class DataStoreManager(private val context: Context) {
         return prefs[CART_KEY]
     }
 
-    // Flows for reactive UI
+
     fun cartJsonFlow(): Flow<String?> = context.dataStore.data.map { prefs -> prefs[CART_KEY] }
 
     fun productCatalogJsonFlow(): Flow<String?> = context.dataStore.data.map { prefs -> prefs[PRODUCTS_KEY] }
@@ -109,7 +109,7 @@ class DataStoreManager(private val context: Context) {
         saveProfilesMap(map)
     }
 
-    // Product catalog JSON
+
     suspend fun saveProductCatalogJson(json: String) {
         context.dataStore.edit { prefs ->
             prefs[PRODUCTS_KEY] = json
@@ -151,3 +151,4 @@ class DataStoreManager(private val context: Context) {
         return prefs[ORDERS_KEY]
     }
 }
+

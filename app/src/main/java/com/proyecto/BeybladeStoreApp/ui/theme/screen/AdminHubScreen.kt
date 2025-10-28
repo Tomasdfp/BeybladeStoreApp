@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -31,3 +31,4 @@ fun AdminHubScreen(
         Button(onClick = onBack) { Text("Volver") }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.data.models
+﻿package com.proyecto.BeybladeStoreApp.data.models
 
 data class Order(
     val id: Int,
@@ -8,3 +8,4 @@ data class Order(
     val userEmail: String? = null,
     val status: String = "CREATED"
 )
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.data.local.models
+﻿package com.proyecto.BeybladeStoreApp.data.local.models
 
 data class UserProfile(
     val email: String,
@@ -6,3 +6,4 @@ data class UserProfile(
     val phone: String? = null,
     val address: String? = null
 )
+

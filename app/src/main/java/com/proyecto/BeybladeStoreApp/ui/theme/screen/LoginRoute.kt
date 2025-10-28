@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,13 +42,13 @@ fun LoginRoute(
     var loading by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
-    // Ensure default user present
+
     LaunchedEffect(Unit) { vm.ensureDefault() }
 
     LoginScreen(
         onLogin = { email, password ->
-            // Basic validation
-            // Allow legacy short usernames 'admin' and 'user' (seeded defaults), or a valid email
+
+
             val trimmed = email.trim()
             if (!(EmailValidator.isValid(trimmed) || trimmed == "admin" || trimmed == "user")) {
                 loginMessage = "Correo inválido"
@@ -75,3 +75,4 @@ fun LoginRoute(
         loginResultMessage = if (loading) "Validando..." else loginMessage
     )
 }
+

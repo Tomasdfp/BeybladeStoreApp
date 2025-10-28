@@ -1,0 +1,160 @@
+package com.proyecto.BeybladeStoreApp.ui.theme.screen
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.Button
+import coil.compose.AsyncImage
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
+import com.proyecto.BeybladeStoreApp.data.models.Product
+import com.proyecto.BeybladeStoreApp.repository.ProductRepository
+
+@Composable
+fun AdminAddProductScreen(onSaved: () -> Unit, onCancel: () -> Unit) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    val name = remember { mutableStateOf("") }
+    val description = remember { mutableStateOf("") }
+    val price = remember { mutableStateOf("") }
+    val imageRes = remember { mutableStateOf("") }
+    val stock = remember { mutableStateOf("") }
+    val imageUris = remember { mutableStateOf<List<String>>(emptyList()) }
+
+    // Image picker launcher (multiple)
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
+        if (!uris.isNullOrEmpty()) {
+            val list = uris.mapNotNull { uri ->
+                try {
+                    ctx.contentResolver.takePersistableUriPermission(uri, android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                } catch (_: Exception) {}
+                uri.toString()
+            }
+            imageUris.value = imageUris.value + list
+        }
+    }
+
+    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        Text("Agregar producto", style = MaterialTheme.typography.headlineSmall)
+
+        Spacer(modifier = Modifier.height(12.dp))
+        OutlinedTextField(
+            value = name.value,
+            onValueChange = { name.value = it },
+            label = { Text("Nombre") },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = description.value,
+            onValueChange = { description.value = it },
+            label = { Text("Descripción") },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = price.value,
+            onValueChange = { price.value = it },
+            label = { Text("Precio") },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = imageRes.value,
+            onValueChange = { imageRes.value = it },
+            label = { Text("Nombre recurso drawable (opcional)") },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(onClick = { launcher.launch(arrayOf("image/*")) }) {
+            Text("Seleccionar imágenes")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = stock.value,
+            onValueChange = { stock.value = it },
+            label = { Text("Stock (cantidad)") },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black)
+        )
+
+        if (imageUris.value.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            LazyRow {
+                items(items = imageUris.value) { u ->
+                    AsyncImage(
+                        model = u,
+                        contentDescription = "Imagen seleccionada",
+                        modifier = Modifier
+                            .height(120.dp)
+                            .width(120.dp)
+                            .padding(end = 8.dp)
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = {
+                // Validate inputs
+                val priceVal = price.value.toDoubleOrNull()
+                if (name.value.isBlank()) {
+                    android.widget.Toast.makeText(ctx, "El nombre es obligatorio", android.widget.Toast.LENGTH_SHORT).show()
+                    return@Button
+                }
+                if (priceVal == null || priceVal <= 0.0) {
+                    android.widget.Toast.makeText(ctx, "Precio inválido", android.widget.Toast.LENGTH_SHORT).show()
+                    return@Button
+                }
+
+                // Save product
+                scope.launch {
+                    val repo = ProductRepository(ctx)
+                    val current = repo.getProducts().toMutableList()
+                    val nextId = (current.maxByOrNull { it.id }?.id ?: 0) + 1
+                    val p = Product(
+                        id = nextId,
+                        name = name.value,
+                        description = description.value,
+                        price = priceVal,
+                        imageResName = if (imageRes.value.isBlank()) null else imageRes.value,
+                        imageUris = imageUris.value,
+                        stock = stock.value.toIntOrNull() ?: 0
+                    )
+                    current.add(p)
+                    repo.saveProducts(current)
+                    android.widget.Toast.makeText(ctx, "Producto guardado", android.widget.Toast.LENGTH_SHORT).show()
+                    onSaved()
+                }
+            }) {
+                Text("Guardar")
+            }
+
+            Button(onClick = onCancel) {
+                Text("Cancelar")
+            }
+        }
+    }
+}

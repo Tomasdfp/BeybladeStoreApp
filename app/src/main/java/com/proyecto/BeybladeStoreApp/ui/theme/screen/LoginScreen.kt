@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.Composable
@@ -42,7 +42,7 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Welcome header matching the store name — pinned to top so it's not hidden by keyboard
+
         Text(
             text = "Bienvenido a Beyblade Store",
             style = MaterialTheme.typography.headlineSmall,
@@ -102,7 +102,7 @@ fun LoginScreen(
             Text("¿No tienes cuenta? Regístrate")
         }
 
-        // (Removed quick admin login helper per requirements)
+
 
         loginResultMessage?.let {
             Spacer(Modifier.height(16.dp))
@@ -110,3 +110,4 @@ fun LoginScreen(
         }
     }
 }
+

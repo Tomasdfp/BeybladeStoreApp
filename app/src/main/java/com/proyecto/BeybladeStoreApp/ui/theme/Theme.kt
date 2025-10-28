@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme
+﻿package com.proyecto.BeybladeStoreApp.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -35,7 +35,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun BeybladeStoreAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // disable dynamicColor by default so the app uses the Beyblade palette we defined
+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -55,3 +55,4 @@ fun BeybladeStoreAppTheme(
         content = content
     )
 }
+

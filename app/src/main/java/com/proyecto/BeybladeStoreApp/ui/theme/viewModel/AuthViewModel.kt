@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,7 +30,7 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
         }
     }
 
-    // suspend helper so callers can await the result directly
+
     suspend fun loginSuspend(email: String, password: String): Boolean {
         val ok = repo.login(email, password)
         if (ok) repo.setSession(email.trim())
@@ -43,3 +43,4 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
         }
     }
 }
+

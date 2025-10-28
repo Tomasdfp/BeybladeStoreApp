@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -39,7 +39,7 @@ fun AdminEditProductScreen(productId: Int, onBack: () -> Unit = {}) {
     val stock = remember { mutableStateOf("") }
     val imageUris = remember { mutableStateOf<List<String>>(emptyList()) }
 
-    // launcher for multiple images
+
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
         if (!uris.isNullOrEmpty()) {
             val list = uris.mapNotNull { uri ->
@@ -65,15 +65,15 @@ fun AdminEditProductScreen(productId: Int, onBack: () -> Unit = {}) {
         Text("Editar producto", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(12.dp))
 
-        OutlinedTextField(value = name.value, onValueChange = { name.value = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = name.value, onValueChange = { name.value = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = description.value, onValueChange = { description.value = it }, label = { Text("Descripción") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = description.value, onValueChange = { description.value = it }, label = { Text("Descripción") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = price.value, onValueChange = { price.value = it }, label = { Text("Precio") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = price.value, onValueChange = { price.value = it }, label = { Text("Precio") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = stock.value, onValueChange = { stock.value = it }, label = { Text("Stock") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = stock.value, onValueChange = { stock.value = it }, label = { Text("Stock") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = imageRes.value, onValueChange = { imageRes.value = it }, label = { Text("Nombre recurso drawable (opcional)") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = imageRes.value, onValueChange = { imageRes.value = it }, label = { Text("Nombre recurso drawable (opcional)") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
 
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { launcher.launch(arrayOf("image/*")) }) { Text("Agregar imágenes") }
@@ -111,7 +111,7 @@ fun AdminEditProductScreen(productId: Int, onBack: () -> Unit = {}) {
             }) { Text("Guardar") }
 
             Button(onClick = {
-                // delete product
+
                 val p = product ?: return@Button
                 scope.launch {
                     val list = repo.getProducts().filterNot { it.id == p.id }
@@ -124,3 +124,4 @@ fun AdminEditProductScreen(productId: Int, onBack: () -> Unit = {}) {
         }
     }
 }
+

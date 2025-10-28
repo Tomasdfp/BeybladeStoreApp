@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.util
+﻿package com.proyecto.BeybladeStoreApp.util
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -29,3 +29,4 @@ class EmailValidatorTest {
         bad.forEach { email -> assertFalse("should be invalid: $email", EmailValidator.isValid(email)) }
     }
 }
+

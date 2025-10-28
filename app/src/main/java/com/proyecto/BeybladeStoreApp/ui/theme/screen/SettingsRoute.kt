@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun SettingsRoute(onBack: () -> Unit = {}, onAdminAdd: () -> Unit = {}, onViewOrders: () -> Unit = {}, onProfile: () -> Unit = {}) {
     val context = LocalContext.current
-    // get current session user
+
     val sessionState = produceState(initialValue = null as String?, key1 = context) {
         try {
             val repo = AuthRepository(context)
@@ -49,9 +49,9 @@ fun SettingsRoute(onBack: () -> Unit = {}, onAdminAdd: () -> Unit = {}, onViewOr
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Ajustes", style = MaterialTheme.typography.headlineSmall)
 
-        // NOTE: Removed non-functional Xano toggle per requirements
 
-        // Admin only: Add product
+
+
         if (currentUser == "admin") {
             Surface(modifier = Modifier
                 .fillMaxWidth()
@@ -79,3 +79,4 @@ fun SettingsRoute(onBack: () -> Unit = {}, onAdminAdd: () -> Unit = {}, onViewOr
         }
     }
 }
+

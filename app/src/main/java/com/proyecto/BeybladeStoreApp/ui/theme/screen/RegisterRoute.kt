@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
@@ -31,15 +31,15 @@ fun RegisterRoute(
     var registerMessage by remember { mutableStateOf<String?>(null) }
     var loading by remember { mutableStateOf(false) }
 
-    // Nueva variable para indicar si el registro fue exitoso
+
     var clearFieldsTrigger by remember { mutableStateOf(false) }
 
-    // Ensure default user is present
+
     LaunchedEffect(Unit) { vm.ensureDefault() }
 
     RegisterScreen(
         onRegister = { email, password ->
-            // Basic validation
+
             if (!EmailValidator.isValid(email)) {
                 registerMessage = "Correo inválido"
                 return@RegisterScreen
@@ -70,3 +70,4 @@ fun RegisterRoute(
         onFieldsCleared = { clearFieldsTrigger = false }
     )
 }
+

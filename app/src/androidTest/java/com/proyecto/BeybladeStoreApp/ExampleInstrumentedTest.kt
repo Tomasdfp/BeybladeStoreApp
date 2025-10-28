@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp
+﻿package com.proyecto.BeybladeStoreApp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -16,3 +16,4 @@ class ExampleInstrumentedTest {
         assertEquals("com.proyecto.BeybladeStoreApp", appContext.packageName)
     }
 }
+

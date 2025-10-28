@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +13,7 @@ class ProductsViewModel(private val repository: ProductRepository) : ViewModel()
     val products: StateFlow<List<Product>> = _products
 
     init {
-        // Collect repository flow so UI updates reactively when products are saved
+
         viewModelScope.launch {
             try {
                 repository.productsFlow().collect { list ->
@@ -25,7 +25,7 @@ class ProductsViewModel(private val repository: ProductRepository) : ViewModel()
         }
     }
 
-    // kept for compatibility if needed
+
     fun load() {
         viewModelScope.launch {
             try {
@@ -46,3 +46,4 @@ class ProductsViewModel(private val repository: ProductRepository) : ViewModel()
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp
+﻿package com.proyecto.BeybladeStoreApp
 
 import org.junit.Test
 
@@ -10,3 +10,4 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 }
+

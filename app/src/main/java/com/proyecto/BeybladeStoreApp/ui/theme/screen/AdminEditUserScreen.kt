@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -42,13 +42,13 @@ fun AdminEditUserScreen(userEmail: String, onBack: () -> Unit = {}) {
         Text("Editar usuario: $userEmail", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(12.dp))
 
-        OutlinedTextField(value = displayName, onValueChange = { displayName = it }, label = { Text("Nombre para mostrar") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = displayName, onValueChange = { displayName = it }, label = { Text("Nombre para mostrar") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = phone, onValueChange = { phone = it }, label = { Text("Teléfono") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = phone, onValueChange = { phone = it }, label = { Text("Teléfono") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = address, onValueChange = { address = it }, label = { Text("Dirección") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = address, onValueChange = { address = it }, label = { Text("Dirección") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = newPassword, onValueChange = { newPassword = it }, label = { Text("Nueva contraseña (opcional)") }, modifier = Modifier.fillMaxWidth())
+    OutlinedTextField(value = newPassword, onValueChange = { newPassword = it }, label = { Text("Nueva contraseña (opcional)") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
 
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -60,7 +60,7 @@ fun AdminEditUserScreen(userEmail: String, onBack: () -> Unit = {}) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 scope.launch {
-                    // save profile
+
                     repo.saveProfile(UserProfile(email = userEmail, displayName = displayName.ifBlank { null }, phone = phone.ifBlank { null }, address = address.ifBlank { null }))
                     if (newPassword.isNotBlank()) repo.updatePassword(userEmail, newPassword)
                     repo.updateUserRole(userEmail, if (isAdmin) "admin" else "user")
@@ -75,3 +75,4 @@ fun AdminEditUserScreen(userEmail: String, onBack: () -> Unit = {}) {
         if (message.isNotBlank()) Text(message)
     }
 }
+

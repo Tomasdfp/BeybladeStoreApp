@@ -1,4 +1,4 @@
-package com.proyecto.BeybladeStoreApp.ui.theme.screen
+﻿package com.proyecto.BeybladeStoreApp.ui.theme.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -43,13 +43,13 @@ fun ProfileScreen(onBack: () -> Unit = {}) {
         Text("Mi perfil", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(12.dp))
 
-    OutlinedTextField(value = displayName, onValueChange = { displayName = it }, label = { Text("Nombre para mostrar") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onBackground))
+    OutlinedTextField(value = displayName, onValueChange = { displayName = it }, label = { Text("Nombre para mostrar") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-    OutlinedTextField(value = phone, onValueChange = { phone = it }, label = { Text("Teléfono") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onBackground))
+    OutlinedTextField(value = phone, onValueChange = { phone = it }, label = { Text("Teléfono") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-    OutlinedTextField(value = address, onValueChange = { address = it }, label = { Text("Dirección de envío") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onBackground))
+    OutlinedTextField(value = address, onValueChange = { address = it }, label = { Text("Dirección de envío") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
-    OutlinedTextField(value = newPassword, onValueChange = { newPassword = it }, label = { Text("Nueva contraseña (opcional)") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onBackground))
+    OutlinedTextField(value = newPassword, onValueChange = { newPassword = it }, label = { Text("Nueva contraseña (opcional)") }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(color = androidx.compose.ui.graphics.Color.Black))
 
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -75,3 +75,4 @@ fun ProfileScreen(onBack: () -> Unit = {}) {
         if (message.isNotBlank()) Text(message)
     }
 }
+
